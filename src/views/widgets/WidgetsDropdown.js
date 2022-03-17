@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import {
   CRow,
   CCol,
@@ -22,9 +23,34 @@ import {
   cilTrash,
   cilBuilding,
   cilCash,
+  cilUser,
+  cilCarAlt,
+  cilGroup,
 } from '@coreui/icons'
+import axios from 'axios'
+
+const dashboardURL = 'http://127.0.0.1:8000/api/dashboard'
+const DechetsURL = 'http://127.0.0.1:8000/api/somme-total-dechet-zone-depot'
 
 const WidgetsDropdown = () => {
+  const [value, setValue] = useState([])
+  const getValue = async () => {
+    await axios.get(dashboardURL).then((response) => {
+      const myValue = response.data
+      setValue(myValue)
+    })
+  }
+  useEffect(() => getValue(), [])
+
+  const [dechets, setDechets] = useState([])
+  const getDechets = async () => {
+    await axios.get(DechetsURL).then((response) => {
+      const donnee = response.data
+      setDechets(donnee)
+    })
+  }
+  useEffect(() => getDechets(), [])
+
   return (
     <>
       <CRow>
@@ -34,26 +60,13 @@ const WidgetsDropdown = () => {
             color="primary"
             value={
               <>
-                26KG{' '}
+                {dechets.somme_depot_actuelle_plastique} KG {''}
                 <span className="fs-6 fw-normal">
-                  (-12.4% <CIcon icon={cilArrowBottom} />)
+                  (0% <CIcon icon={cilArrowBottom} />)
                 </span>
               </>
             }
             title="Plastique"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle color="transparent" caret={false} className="p-0">
-                  <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem>Another action</CDropdownItem>
-                  <CDropdownItem>Something else here...</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
             chart={
               <CChartLine
                 className="mt-3 mx-3"
@@ -121,9 +134,9 @@ const WidgetsDropdown = () => {
             color="warning"
             value={
               <>
-                10Kg{' '}
+                {dechets.somme_depot_actuelle_papier}KG{' '}
                 <span className="fs-6 fw-normal">
-                  (40.9% <CIcon icon={cilArrowTop} />)
+                  (+0% <CIcon icon={cilArrowTop} />)
                 </span>
               </>
             }
@@ -207,9 +220,9 @@ const WidgetsDropdown = () => {
             color="success"
             value={
               <>
-                13Kg{' '}
+                {dechets.somme_depot_actuelle_composte}KG{' '}
                 <span className="fs-6 fw-normal">
-                  (50.7% <CIcon icon={cilArrowTop} />)
+                  (+0% <CIcon icon={cilArrowTop} />)
                 </span>
               </>
             }
@@ -280,9 +293,9 @@ const WidgetsDropdown = () => {
             color="danger"
             value={
               <>
-                44KG{' '}
+                {dechets.somme_depot_actuelle_canette}KG{' '}
                 <span className="fs-6 fw-normal">
-                  (-23.6% <CIcon icon={cilArrowBottom} />)
+                  (-0% <CIcon icon={cilArrowBottom} />)
                 </span>
               </>
             }
@@ -374,7 +387,7 @@ const WidgetsDropdown = () => {
             color="primary"
             icon={<CIcon icon={cilMap} height={24} />}
             title="Zones de travail"
-            value="12"
+            value={value.nbr_zone_travail}
           />
         </CCol>
         <CCol sm={6} lg={3}>
@@ -383,7 +396,7 @@ const WidgetsDropdown = () => {
             color="warning"
             icon={<CIcon icon={cilBuilding} height={24} />}
             title="Etablissements"
-            value="32"
+            value={value.nbr_etablissement}
           />
         </CCol>
         <CCol sm={6} lg={3}>
@@ -392,68 +405,43 @@ const WidgetsDropdown = () => {
             color="success"
             icon={<CIcon icon={cilTrash} height={24} />}
             title="Blocs poubelles"
-            value="150"
+            value={value.nbr_bloc_poubelle}
           />
         </CCol>
         <CCol sm={6} lg={3}>
           <CWidgetStatsF
             className="mb-3"
             color="danger"
-            icon={<CIcon icon={cilCash} height={24} />}
+            icon={<CIcon icon={cilUser} height={24} />}
             title="Acheteur de Déchets"
-            value="8"
+            value={value.nbr_client_dechet}
           />
         </CCol>
         <CCol sm={6} lg={3}>
           <CWidgetStatsF
             className="mb-3"
             color="info"
-            icon={<CIcon icon={cilCash} height={24} />}
+            icon={<CIcon icon={cilCarAlt} height={24} />}
             title="Camions"
-            value="8"
+            value={value.nbr_camion}
           />
         </CCol>
         <CCol sm={6} lg={3}>
           <CWidgetStatsF
             className="mb-3"
             color="dark"
-            icon={<CIcon icon={cilCash} height={24} />}
+            icon={<CIcon icon={cilGroup} height={24} />}
             title="Ouvriers"
-            value="16"
-          />
-        </CCol>
-      </CRow>
-      <CRow>
-        <CCol sm={6} lg={3}>
-          <CWidgetStatsB
-            className="mb-3"
-            progress={{ color: 'primary', value: 75 }}
-            title="Widget title"
-            value="89.9%"
+            value={value.nbr_ouvrier}
           />
         </CCol>
         <CCol sm={6} lg={3}>
-          <CWidgetStatsC
+          <CWidgetStatsF
             className="mb-3"
-            progress={{ color: 'warning', value: 75 }}
-            title="Widget title"
-            value="50%"
-          />
-        </CCol>
-        <CCol sm={6} lg={3}>
-          <CWidgetStatsB
-            className="mb-3"
-            progress={{ color: 'success', value: 75 }}
-            title="Widget title"
-            value="91.7%"
-          />
-        </CCol>
-        <CCol sm={6} lg={3}>
-          <CWidgetStatsC
-            className="mb-3"
-            progress={{ color: 'danger', value: 75 }}
-            title="Widget title"
-            value="32.7%"
+            color="secondary"
+            icon={<CIcon icon={cilUser} height={24} />}
+            title="Fournisseurs"
+            value={value.nbr_fournisseur}
           />
         </CCol>
       </CRow>

@@ -28,11 +28,10 @@ const Camions = () => {
 
   return (
     <div>
-      <h2>Camions</h2>
-      <br />
       <CRow>
         <CCol>
           <CCard>
+            <h2 style={{ marginTop: 15, marginLeft: 30 }}>Camions</h2>
             <CCardBody>
               <CTable align="middle" className="mb-0 border" color="light" hover responsive small>
                 <CTableHead color="dark">

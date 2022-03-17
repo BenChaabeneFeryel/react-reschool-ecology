@@ -7,6 +7,7 @@ import Ouvriers from './components/admin/Ouvriers'
 import Reparateurs from './components/admin/Reparateurs'
 import Responsables from './components/admin/Responsables'
 import Acheteurs from './components/admin/Acheteurs'
+import Fournisseurs from './components/admin/Fournisseurs'
 
 const routes = [
   { path: '/', exact: true, name: 'Accueil', element: Dashboard },
@@ -17,7 +18,8 @@ const routes = [
   { path: '/ouvriers', name: 'Ouvriers', element: Ouvriers },
   { path: '/reparateurs', name: 'Reparateurs', element: Reparateurs },
   { path: '/responsables-etablissements', name: 'Responsables', element: Responsables },
-  { path: '/achteurs-dechets', name: 'Acheteurs', element: Acheteurs },
+  { path: '/acheteurs-dechets', name: 'Acheteurs', element: Acheteurs },
+  { path: '/fournisseurs', name: 'Fournisseurs', element: Fournisseurs },
   { path: '/login', name: 'Login', element: Login },
 ]
 

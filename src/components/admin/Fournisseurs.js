@@ -14,9 +14,9 @@ import {
   CTableRow,
 } from '@coreui/react'
 
-const baseURL = 'http://127.0.0.1:8000/api/client'
+const baseURL = 'http://127.0.0.1:8000/api/fournisseurs'
 
-const Acheteurs = () => {
+const Fournisseurs = () => {
   const [value, setValue] = useState([])
   const getValue = async () => {
     await axios.get(baseURL).then((response) => {
@@ -31,13 +31,12 @@ const Acheteurs = () => {
       <CRow>
         <CCol>
           <CCard>
-            <h2 style={{ marginTop: 15, marginLeft: 30 }}>Acheteurs</h2>
+            <h2 style={{ marginTop: 15, marginLeft: 30 }}>Fournisseurs</h2>
             <CCardBody>
               <CTable align="middle" className="mb-0 border" color="light" hover responsive small>
                 <CTableHead color="dark">
                   <CTableRow>
                     <CTableHeaderCell className="text-center">ID </CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Photo</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Nom et Prénom</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">CIN</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Adresse</CTableHeaderCell>
@@ -52,13 +51,6 @@ const Acheteurs = () => {
                     <CTableRow v-for="item in tableItems" key={item.i}>
                       <CTableDataCell className="text-center">
                         <strong>{item.id}</strong>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <img
-                          src={`http://127.0.0.1:8000/storage/images/client/${item.photo}`}
-                          height="30px"
-                          width="30px"
-                        />
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
                         {item.nom} {item.prenom}
@@ -83,4 +75,4 @@ const Acheteurs = () => {
   )
 }
 
-export default Acheteurs
+export default Fournisseurs

@@ -37,6 +37,7 @@
     "chart.js": "^3.7.1",
     "classnames": "^2.3.1",
     "core-js": "^3.21.1",
+    "coreui": "^0.4.2-alpha2",
     "mapbox-gl": "^2.7.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -45,8 +46,10 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
+    "react-select": "^5.2.2",
     "redux": "4.1.2",
-    "simplebar-react": "^2.3.6"
+    "simplebar-react": "^2.3.6",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",

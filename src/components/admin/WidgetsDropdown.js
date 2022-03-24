@@ -36,8 +36,7 @@ const WidgetsDropdown = () => {
   const [value, setValue] = useState([])
   const getValue = async () => {
     await axios.get(dashboardURL).then((response) => {
-      const myValue = response.data
-      setValue(myValue)
+      setValue(response.data)
     })
   }
   useEffect(() => getValue(), [])
@@ -45,8 +44,7 @@ const WidgetsDropdown = () => {
   const [dechets, setDechets] = useState([])
   const getDechets = async () => {
     await axios.get(DechetsURL).then((response) => {
-      const donnee = response.data
-      setDechets(donnee)
+      setDechets(response.data)
     })
   }
   useEffect(() => getDechets(), [])
